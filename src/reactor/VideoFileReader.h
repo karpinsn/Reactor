@@ -11,6 +11,9 @@
 #ifndef _VIDEO_FILE_READER_H_
 #define _VIDEO_FILE_READER_H_
 
+#include <iostream>
+#include <string>
+
 //	FFmpeg Includes
 #define __STDC_CONSTANT_MACROS
 extern "C"
@@ -20,7 +23,7 @@ extern "C"
   #include <libswscale/swscale.h>
 }
 
-#include <string>
+#include "VideoState.h"
 
 using namespace std;
 
@@ -28,6 +31,16 @@ namespace reactor
 {
 	class VideoFileReader
 	{
+	private:
+	  VideoState  m_videoState;
+	  bool		  m_fileOpen;
+
+	public:
+	  VideoFileReader(void);
+	  bool openFile(string& filename);
+	  bool closeFile();
+
+	  void readFrame();
 	};
 }
 

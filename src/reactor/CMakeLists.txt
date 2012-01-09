@@ -20,6 +20,8 @@ set(REACTOR_LIBRARIES ${REACTOR_LIBRARIES} ${FFMPEG_LIBRARIES})
 #	---------------------------------------------------------------------------------------
 
 set(SOURCES	
+	VideoState.h
+
 	VideoFileReader.cpp
 	VideoFileReader.h
 )
