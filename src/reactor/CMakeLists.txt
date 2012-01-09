@@ -11,9 +11,9 @@ set(NAME reactor)
 # Configure Dependencies
 ### ---------------------------------------------------------------------------------------
 find_package(FFMPEG REQUIRED)
-include_directories(${FFMPEG_INCLUDE_DIR})
-SET(REACTOR_INCLUDE_DIRS ${REACTOR_INCLUDE_DIRS} ${FFMPEG_INCLUDE_DIR})
-SET(REACTOR_LIBRARIES ${REACTOR_LIBRARIES} ${FFMPEG_LIBRARIES})
+include_directories(${FFMPEG_INCLUDE_DIRS})
+set(REACTOR_INCLUDE_DIRS ${REACTOR_INCLUDE_DIRS} ${FFMPEG_INCLUDE_DIRS})
+set(REACTOR_LIBRARIES ${REACTOR_LIBRARIES} ${FFMPEG_LIBRARIES})
 
 #	---------------------------------------------------------------------------------------
 #	List all of the sources to be compiled
