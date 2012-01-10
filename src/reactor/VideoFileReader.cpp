@@ -74,10 +74,9 @@ bool reactor::VideoFileReader::openFile(string& filename)
   }
 
   //  Allocate a video frame
-  m_videoState.pVideoFrame = avcodec_alloc_frame();
+  m_videoState.pCurrentFrame = avcodec_alloc_frame();
 
   m_fileOpen = true;
-
   return m_fileOpen;
 }
 
@@ -89,10 +88,45 @@ bool reactor::VideoFileReader::closeFile()
 	return m_fileOpen;
   }
 
+  //  Free the frame handle
+  av_free(m_videoState.pCurrentFrame);
+  //  Close the codec
+  avcodec_close(m_videoState.pCodecContext);
+  //  Close the input file
+  av_close_input_file(m_videoState.pFormatContext);
+
   return !m_fileOpen;
 }
 
-void reactor::VideoFileReader::readFrame()
+reactor::VideoFrame reactor::VideoFileReader::readFrame()
 {
+  if(!m_fileOpen)
+  {
+	cout << "There is no open file to read from!" << endl;
+	//	Return an empty video frame
+	return VideoFrame();
+  }
 
+  int		frameFinished = 0;
+  AVPacket	packet;
+  
+  if(av_read_frame(m_videoState.pFormatContext, &packet) >= 0)
+  {
+	//	Make sure that this packet is a video packet
+	if(packet.stream_index == m_videoState.videoStream)
+	{
+	  avcodec_decode_video2(m_videoState.pCodecContext, m_videoState.pCurrentFrame, &frameFinished, &packet);
+
+	  if(frameFinished)
+	  {
+		cout << "Got a frame!" << endl;
+		//	Return a video frame that wraps the current frame
+		return VideoFrame(m_videoState.pCurrentFrame, m_videoState.pCodecContext->pix_fmt);
+	  }
+	}
+
+	av_free_packet(&packet);
+  }
+
+  return VideoFrame();
 }

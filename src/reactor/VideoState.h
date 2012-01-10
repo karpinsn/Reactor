@@ -15,8 +15,10 @@ typedef struct VideoState
   AVFormatContext *pFormatContext;
   AVCodecContext  *pCodecContext;
   AVCodec		  *pCodec;
-  AVFrame		  *pVideoFrame;
+  AVFrame		  *pCurrentFrame;
+
   int			  videoStream;
+  int			  audioStream;
 } VideoState;
 
 #endif

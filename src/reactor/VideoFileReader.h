@@ -24,6 +24,7 @@ extern "C"
 }
 
 #include "VideoState.h"
+#include "VideoFrame.h"
 
 using namespace std;
 
@@ -40,7 +41,7 @@ namespace reactor
 	  bool openFile(string& filename);
 	  bool closeFile();
 
-	  void readFrame();
+	  VideoFrame readFrame();
 	};
 }
 

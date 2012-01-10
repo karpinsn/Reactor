@@ -22,8 +22,16 @@ set(REACTOR_LIBRARIES ${REACTOR_LIBRARIES} ${FFMPEG_LIBRARIES})
 set(SOURCES	
 	VideoState.h
 
+    VideoFrame.cpp
+    VideoFrame.h
+
 	VideoFileReader.cpp
 	VideoFileReader.h
+    VideoFileWriter.cpp
+    VideoFileWriter.h
+
+    FormatConverter.cpp
+    FormatConverter.h
 )
 
 source_group("reactor" FILES ${SOURCES})
