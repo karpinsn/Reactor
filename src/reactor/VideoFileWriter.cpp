@@ -92,7 +92,8 @@ void reactor::VideoFileWriter::_setContextParameters(void)
 {
   m_videoState.pCodecContext->width = 512;
   m_videoState.pCodecContext->height = 512;
-  //m_videoState.pCodecContext->time_base = (AVRational){1,30};
+  m_videoState.pCodecContext->time_base.num = 1;
+  m_videoState.pCodecContext->time_base.num = 30;
   m_videoState.pCodecContext->pix_fmt = PIX_FMT_YUV422P;
 
   //  Lossless max
