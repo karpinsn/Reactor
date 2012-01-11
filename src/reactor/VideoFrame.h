@@ -21,8 +21,10 @@ namespace reactor
 	VideoFrame(AVFrame* frame, enum PixelFormat format);
 
 	bool isEmpty(void);
+	AVFrame* getFrame(void);
 	enum PixelFormat getPixelFormat(void);
-	//getBuffer(void);
+	uint8_t** getBuffer(void);
+	const int* getLineSize(void);
   };
 }
 
