@@ -33,7 +33,7 @@ bool reactor::VideoFileReader::openFile(string& filename)
 
   if(errorCode != 0)
   {
-	cout << "Unable to open video: " << filename.c_str() << endl;
+	cout << "Unable to open video: " << filename << endl;
 	return m_fileOpen;
   }
 
@@ -110,7 +110,7 @@ reactor::VideoFrame reactor::VideoFileReader::readFrame()
   int		frameFinished = 0;
   AVPacket	packet;
   
-  if(av_read_frame(m_videoState.pFormatContext, &packet) >= 0)
+  while(av_read_frame(m_videoState.pFormatContext, &packet) >= 0)
   {
 	//	Make sure that this packet is a video packet
 	if(packet.stream_index == m_videoState.videoStream)

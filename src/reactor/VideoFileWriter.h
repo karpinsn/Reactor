@@ -27,7 +27,7 @@ namespace reactor
 	bool m_fileOpen;
 	FILE* m_fileHandle;
 
-	static const int m_outputBufferSize = 10000000;
+	static const int m_outputBufferSize = 100000000;
 	uint8_t*  m_outputBuffer;
 
   public:

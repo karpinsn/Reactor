@@ -30,6 +30,7 @@ namespace reactor
 	bool convert(VideoFrame& source, VideoFrame& destination);
 
 	bool iplImage2AVFrame(IplImage* image, AVFrame* frame);
+	bool avFrame2IplImage(AVFrame* frame, IplImage* image);
   };
 }
 

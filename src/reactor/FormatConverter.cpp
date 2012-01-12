@@ -50,3 +50,25 @@ bool reactor::FormatConverter::iplImage2AVFrame(IplImage* image, AVFrame* frame)
 
   return true;
 }
+
+bool reactor::FormatConverter::avFrame2IplImage(AVFrame* frame, IplImage* image)
+{
+  IplImage* plane0 = cvCreateImage(cvGetSize(image), IPL_DEPTH_8U, 1);
+  IplImage* plane1 = cvCreateImage(cvGetSize(image), IPL_DEPTH_8U, 1);
+  IplImage* plane2 = cvCreateImage(cvGetSize(image), IPL_DEPTH_8U, 1);
+
+  for(int y = 0; y < frame->height; ++y)
+  {
+	memcpy(plane2->imageData + (y * plane2->widthStep), frame->data[0] + (y * frame->linesize[0]), frame->width);
+	memcpy(plane1->imageData + (y * plane1->widthStep), frame->data[1] + (y * frame->linesize[1]), frame->width);
+	memcpy(plane0->imageData + (y * plane0->widthStep), frame->data[2] + (y * frame->linesize[2]), frame->width);
+  }
+
+  cvMerge(plane0, plane1, plane2, NULL, image);
+
+  cvReleaseImage(&plane0);
+  cvReleaseImage(&plane1);
+  cvReleaseImage(&plane2);
+
+  return true;
+}
