@@ -80,19 +80,8 @@ bool reactor::VideoFileWriter::closeFile(void)
   return !m_fileOpen;
 }
 
-#include "FormatConverter.h"
-#include <cv.h>
-#include <highgui.h>
-
 bool reactor::VideoFileWriter::writeFrame(VideoFrame& frame)
 {
-  /*
-  FormatConverter m_yuv444toyuv422;
-  IplImage* testImage = cvCreateImage(cvSize(512,512), IPL_DEPTH_8U, 3);
-  m_yuv444toyuv422.avFrame2IplImage(frame.getFrame(), testImage);
-  cvSaveImage("C:/Temp/image.png", testImage);
-  cvReleaseImage(&testImage);
-  */
   int outputSize = avcodec_encode_video(m_videoState.pCodecContext, m_outputBuffer, m_outputBufferSize, frame.getFrame());
   fwrite(m_outputBuffer, 1, outputSize, m_fileHandle);
 
