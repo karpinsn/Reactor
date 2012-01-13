@@ -20,15 +20,27 @@ set(REACTOR_LIBRARIES ${REACTOR_LIBRARIES} ${FFMPEG_LIBRARIES})
 #	---------------------------------------------------------------------------------------
 
 set(SOURCES	
-	VideoState.h
+	MediaState.h
 
-    VideoFrame.cpp
-    VideoFrame.h
+    MediaFrame.h
+    MediaFrame.cpp
 
-	VideoFileReader.cpp
+    MediaFrameReader.h
 	VideoFileReader.h
-    VideoFileWriter.cpp
+    VideoFileReader.cpp
+    ReaderFilter.h
+    ReaderFilter.cpp
+    ColorSpaceReaderFilter.h
+    ColorSpaceReaderFilter.cpp
+    
+
+    MediaFrameWriter.h
     VideoFileWriter.h
+    VideoFileWriter.cpp
+    WriterFilter.h
+    WriterFilter.cpp
+    ColorSpaceWriterFilter.h
+    ColorSpaceWriterFilter.cpp
 
     FormatConverter.cpp
     FormatConverter.h

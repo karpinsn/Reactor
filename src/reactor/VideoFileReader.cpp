@@ -27,7 +27,7 @@ bool reactor::VideoFileReader::openFile(string& filename)
 
   //  Open the video file
   int errorCode;
-  errorCode = av_open_input_file(&m_videoState.pFormatContext, 
+  errorCode = av_open_input_file(&m_videoState.m_FormatContext, 
 								  filename.c_str(), 
 								  NULL, 0, NULL);
 
@@ -38,34 +38,34 @@ bool reactor::VideoFileReader::openFile(string& filename)
   }
 
   //  Find the video stream
-  m_videoState.videoStream = -1;
-  for(unsigned int streamNumber = 0; streamNumber < m_videoState.pFormatContext->nb_streams; ++streamNumber)
+  m_videoState.m_videoStreamIndex = -1;
+  for(unsigned int streamNumber = 0; streamNumber < m_videoState.m_FormatContext->nb_streams; ++streamNumber)
   {
-	if(m_videoState.pFormatContext->streams[streamNumber]->codec->codec_type==AVMEDIA_TYPE_VIDEO)
+	if(m_videoState.m_FormatContext->streams[streamNumber]->codec->codec_type==AVMEDIA_TYPE_VIDEO)
 	{
-	  m_videoState.videoStream = streamNumber;
+	  m_videoState.m_videoStreamIndex = streamNumber;
 	  break;
 	}
   }
 
-  if(-1 == m_videoState.videoStream)
+  if(-1 == m_videoState.m_videoStreamIndex)
   {
 	cout << "Unable to find a video stream in the file!" << endl;
 	return m_fileOpen;
   }
 
   // Get a pointer to the video codec context for the video streams
-  m_videoState.pCodecContext = m_videoState.pFormatContext->streams[m_videoState.videoStream]->codec;
+  m_videoState.m_CodecContext = m_videoState.m_FormatContext->streams[m_videoState.m_videoStreamIndex]->codec;
   // Need to get a decoder for the video stream
-  m_videoState.pCodec = avcodec_find_decoder(m_videoState.pCodecContext->codec_id);
+  m_videoState.m_Codec = avcodec_find_decoder(m_videoState.m_CodecContext->codec_id);
 
-  if(NULL == m_videoState.pCodec)
+  if(NULL == m_videoState.m_Codec)
   {
 	cout << "Unable to find a codec for the video file!" << endl;
 	return m_fileOpen;
   }
 
-  errorCode = avcodec_open(m_videoState.pCodecContext, m_videoState.pCodec);
+  errorCode = avcodec_open(m_videoState.m_CodecContext, m_videoState.m_Codec);
 
   if(errorCode < 0)
   {
@@ -74,7 +74,7 @@ bool reactor::VideoFileReader::openFile(string& filename)
   }
 
   //  Allocate a video frame
-  m_videoState.pCurrentFrame = avcodec_alloc_frame();
+  m_videoState.m_CurrentFrame = avcodec_alloc_frame();
 
   m_fileOpen = true;
   return m_fileOpen;
@@ -89,44 +89,49 @@ bool reactor::VideoFileReader::closeFile()
   }
 
   //  Free the frame handle
-  av_free(m_videoState.pCurrentFrame);
+  av_free(m_videoState.m_CurrentFrame);
   //  Close the codec
-  avcodec_close(m_videoState.pCodecContext);
+  avcodec_close(m_videoState.m_CodecContext);
   //  Close the input file
-  av_close_input_file(m_videoState.pFormatContext);
+  av_close_input_file(m_videoState.m_FormatContext);
 
   return !m_fileOpen;
 }
 
-reactor::VideoFrame reactor::VideoFileReader::readFrame()
+enum PixelFormat reactor::VideoFileReader::getPixelFormat(void)
+{
+  return m_videoState.m_CodecContext->pix_fmt;
+}
+
+reactor::MediaFrame reactor::VideoFileReader::readFrame()
 {
   if(!m_fileOpen)
   {
 	cout << "There is no open file to read from!" << endl;
 	//	Return an empty video frame
-	return VideoFrame();
+	return MediaFrame();
   }
 
   int		frameFinished = 0;
   AVPacket	packet;
   
-  while(av_read_frame(m_videoState.pFormatContext, &packet) >= 0)
+  while(av_read_frame(m_videoState.m_FormatContext, &packet) >= 0)
   {
 	//	Make sure that this packet is a video packet
-	if(packet.stream_index == m_videoState.videoStream)
+	if(packet.stream_index == m_videoState.m_videoStreamIndex)
 	{
-	  avcodec_decode_video2(m_videoState.pCodecContext, m_videoState.pCurrentFrame, &frameFinished, &packet);
+	  avcodec_decode_video2(m_videoState.m_CodecContext, m_videoState.m_CurrentFrame, &frameFinished, &packet);
 
 	  if(frameFinished)
 	  {
 		cout << "Got a frame!" << endl;
 		//	Return a video frame that wraps the current frame
-		return VideoFrame(m_videoState.pCurrentFrame, m_videoState.pCodecContext->pix_fmt);
+		return MediaFrame(m_videoState.m_CurrentFrame, m_videoState.m_CodecContext->pix_fmt);
 	  }
 	}
 
 	av_free_packet(&packet);
   }
 
-  return VideoFrame();
+  return MediaFrame();
 }

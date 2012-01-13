@@ -23,25 +23,27 @@ extern "C"
   #include <libswscale/swscale.h>
 }
 
-#include "VideoState.h"
-#include "VideoFrame.h"
+#include "MediaState.h"
+#include "MediaFrame.h"
+#include "MediaFrameReader.h"
 
 using namespace std;
 
 namespace reactor
 {
-	class VideoFileReader
+	class VideoFileReader : public MediaFrameReader
 	{
 	private:
-	  VideoState  m_videoState;
+	  MediaState  m_videoState;
 	  bool		  m_fileOpen;
 
 	public:
 	  VideoFileReader(void);
 	  bool openFile(string& filename);
 	  bool closeFile();
+	  enum PixelFormat getPixelFormat(void);
 
-	  VideoFrame readFrame();
+	  MediaFrame readFrame();
 	};
 }
 

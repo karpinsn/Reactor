@@ -1,5 +1,5 @@
-#ifndef _REACTOR_VIDEO_FRAME_H
-#define _REACTOR_VIDEO_FRAME_H
+#ifndef _REACTOR_MEDIA_FRAME_H
+#define _REACTOR_MEDIA_FRAME_H
 
 //	FFmpeg Includes
 #define __STDC_CONSTANT_MACROS
@@ -10,15 +10,15 @@ extern "C"
 
 namespace reactor
 {
-  class VideoFrame
+  class MediaFrame
   {
   private:
 	AVFrame*		  m_frame;
 	enum PixelFormat  m_format;
 
   public:
-	VideoFrame();
-	VideoFrame(AVFrame* frame, enum PixelFormat format);
+	MediaFrame();
+	MediaFrame(AVFrame* frame, enum PixelFormat format);
 
 	bool isEmpty(void);
 	AVFrame* getFrame(void);
@@ -28,4 +28,4 @@ namespace reactor
   };
 }
 
-#endif
+#endif	// _REACTOR_MEDIA_FRAME_H

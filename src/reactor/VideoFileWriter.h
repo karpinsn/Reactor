@@ -13,17 +13,18 @@ extern "C"
   #include <libswscale/swscale.h>
 }
 
-#include "VideoState.h"
-#include "VideoFrame.h"
+#include "MediaState.h"
+#include "MediaFrame.h"
+#include "MediaFrameWriter.h"
 
 using namespace std;
 
 namespace reactor
 {
-  class VideoFileWriter
+  class VideoFileWriter : public MediaFrameWriter
   {
   private:
-	VideoState m_videoState;
+	MediaState m_videoState;
 	bool m_fileOpen;
 	FILE* m_fileHandle;
 
@@ -35,8 +36,9 @@ namespace reactor
 	~VideoFileWriter();
 	bool openFile(string& filename);
 	bool closeFile(void);
+	enum PixelFormat getPixelFormat(void);
 
-	bool writeFrame(VideoFrame& frame);
+	void writeFrame(MediaFrame& frame);
 
   private:
 	void _setContextParameters(void);

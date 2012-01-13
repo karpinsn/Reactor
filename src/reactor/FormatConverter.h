@@ -11,7 +11,7 @@ extern "C"
   #include <libswscale/swscale.h>
 }
 
-#include "VideoFrame.h"
+#include "MediaFrame.h"
 
 #include <cv.h>
 #include <highgui.h>
@@ -27,7 +27,7 @@ namespace reactor
 
   public:
 	bool init(enum PixelFormat sourceFormat, enum PixelFormat destinationFormat);
-	bool convert(VideoFrame& source, VideoFrame& destination);
+	bool convert(MediaFrame& source, MediaFrame& destination);
 
 	bool iplImage2AVFrame(IplImage* image, AVFrame* frame);
 	bool avFrame2IplImage(AVFrame* frame, IplImage* image);

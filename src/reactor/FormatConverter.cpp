@@ -9,7 +9,7 @@ bool reactor::FormatConverter::init(enum PixelFormat sourceFormat, enum PixelFor
   return NULL != m_convertContext;
 }
 
-bool reactor::FormatConverter::convert(VideoFrame& source, VideoFrame& destination)
+bool reactor::FormatConverter::convert(MediaFrame& source, MediaFrame& destination)
 {
   if(NULL == m_convertContext)
   {
