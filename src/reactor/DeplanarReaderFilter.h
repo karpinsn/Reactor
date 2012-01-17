@@ -29,6 +29,6 @@ namespace reactor
   };
 }
 
-extern "C" void quickStridedMemcpy(uint8_t* dest, uint8_t** src, int width, int height);
+extern "C" void deplanarMemcpy(uint8_t* dest, uint8_t** src, int width, int height);
 
 #endif // _REACTOR_DEPLANAR_READER_FILTER_H_

@@ -42,12 +42,12 @@ reactor::MediaFrame reactor::DeplanarReaderFilter::readFrame(void)
   MediaFrame frame = ReaderFilter::readFrame();
   AVFrame* srcFrame = frame.getFrame();
 
-  quickStridedMemcpy(m_convertedFrame->data[0], srcFrame->data, frame.getWidth(), frame.getHeight());
+  deplanarMemcpy(m_convertedFrame->data[0], srcFrame->data, frame.getWidth(), frame.getHeight());
 
   return MediaFrame(m_convertedFrame, frame.getPixelFormat());
 }
 
-extern "C" void quickStridedMemcpy(uint8_t* dest, uint8_t** src, int width, int height)
+extern "C" void deplanarMemcpy(uint8_t* dest, uint8_t** src, int width, int height)
 {
   //  Make a copy so we dont change the actual value
   uint8_t* srcPtr[3];
