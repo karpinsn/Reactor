@@ -14,3 +14,13 @@ enum PixelFormat reactor::WriterFilter::getPixelFormat(void)
 {
   return m_writer->getPixelFormat();
 }
+
+const int reactor::WriterFilter::getWidth(void)
+{
+  return m_writer->getWidth();
+}
+
+const int reactor::WriterFilter::getHeight(void)
+{
+  return m_writer->getHeight();
+}

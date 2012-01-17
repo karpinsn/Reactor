@@ -91,6 +91,26 @@ enum PixelFormat reactor::VideoFileWriter::getPixelFormat(void)
   return m_videoState.m_CodecContext->pix_fmt;
 }
 
+const int reactor::VideoFileWriter::getWidth(void)
+{
+  if(NULL != m_videoState.m_CodecContext)
+  {
+	return m_videoState.m_CodecContext->width;
+  }
+  
+  return 0;
+}
+	
+const int reactor::VideoFileWriter::getHeight(void)
+{
+  if(NULL != m_videoState.m_CodecContext)
+  {
+	return m_videoState.m_CodecContext->height;
+  }
+  
+  return 0;
+}
+
 void reactor::VideoFileWriter::_setContextParameters(void)
 {
   m_videoState.m_CodecContext->width = 512;

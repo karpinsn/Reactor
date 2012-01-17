@@ -19,6 +19,16 @@ typedef struct MediaState
 
   int			  m_videoStreamIndex;
   int			  m_audioStreamIndex;
+
+  MediaState()
+  {
+	m_FormatContext		= NULL;
+	m_CodecContext		= NULL;
+	m_Codec				= NULL;
+	m_CurrentFrame		= NULL;
+	m_videoStreamIndex	= -1;
+	m_audioStreamIndex	= -1;
+  }
 } VideoState;
 
 #endif	// _MEDIA_STATE_H_

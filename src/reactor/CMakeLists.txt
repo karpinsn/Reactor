@@ -32,7 +32,8 @@ set(SOURCES
     ReaderFilter.cpp
     ColorSpaceReaderFilter.h
     ColorSpaceReaderFilter.cpp
-    
+	DeplanarReaderFilter.h
+    DeplanarReaderFilter.cpp
 
     MediaFrameWriter.h
     VideoFileWriter.h

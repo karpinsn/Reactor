@@ -24,7 +24,10 @@ namespace reactor
 	AVFrame* getFrame(void);
 	enum PixelFormat getPixelFormat(void);
 	uint8_t** getBuffer(void);
-	const int* getLineSize(void);
+
+	const int* getLineSize(void) const;
+	const int getWidth(void) const;
+	const int getHeight(void) const;
   };
 }
 

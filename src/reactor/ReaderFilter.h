@@ -13,8 +13,10 @@ namespace reactor
 
   public:
 	ReaderFilter(MediaFrameReader* reader);
-	virtual MediaFrame readFrame(void);
-	virtual enum PixelFormat getPixelFormat(void);
+	virtual MediaFrame		  readFrame(void);
+	virtual enum PixelFormat  getPixelFormat(void);
+	virtual const int		  getWidth(void);
+	virtual const int		  getHeight(void);
   };
 }
 

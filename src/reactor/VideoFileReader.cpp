@@ -37,6 +37,13 @@ bool reactor::VideoFileReader::openFile(string& filename)
 	return m_fileOpen;
   }
 
+  errorCode = av_find_stream_info(m_videoState.m_FormatContext);
+  if(errorCode < 0)
+  {
+	cout << "Unable to decode stream info!" << endl;
+	return m_fileOpen;
+  }
+
   //  Find the video stream
   m_videoState.m_videoStreamIndex = -1;
   for(unsigned int streamNumber = 0; streamNumber < m_videoState.m_FormatContext->nb_streams; ++streamNumber)
@@ -100,7 +107,30 @@ bool reactor::VideoFileReader::closeFile()
 
 enum PixelFormat reactor::VideoFileReader::getPixelFormat(void)
 {
-  return m_videoState.m_CodecContext->pix_fmt;
+  if(NULL != m_videoState.m_CodecContext)
+  {
+	return m_videoState.m_CodecContext->pix_fmt;
+  }
+}
+
+const int reactor::VideoFileReader::getWidth(void)
+{
+  if(NULL != m_videoState.m_CodecContext)
+  {
+	return m_videoState.m_CodecContext->width;
+  }
+  
+  return 0;
+}
+	
+const int reactor::VideoFileReader::getHeight(void)
+{
+  if(NULL != m_videoState.m_CodecContext)
+  {
+	return m_videoState.m_CodecContext->height;
+  }
+  
+  return 0;
 }
 
 reactor::MediaFrame reactor::VideoFileReader::readFrame()

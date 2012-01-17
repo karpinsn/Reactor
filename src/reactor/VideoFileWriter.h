@@ -36,9 +36,11 @@ namespace reactor
 	~VideoFileWriter();
 	bool openFile(string& filename);
 	bool closeFile(void);
-	enum PixelFormat getPixelFormat(void);
-
 	void writeFrame(MediaFrame& frame);
+
+	enum PixelFormat  getPixelFormat(void);
+  	const int		  getWidth(void);
+	const int		  getHeight(void);
 
   private:
 	void _setContextParameters(void);

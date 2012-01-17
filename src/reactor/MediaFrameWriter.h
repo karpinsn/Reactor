@@ -17,6 +17,8 @@ namespace reactor
   public:
 	virtual void			  writeFrame(MediaFrame& frame) = 0;
 	virtual enum PixelFormat  getPixelFormat(void)			= 0;
+	virtual const int		  getWidth(void)				= 0;
+	virtual const int		  getHeight(void)				= 0;
   };
 }
 

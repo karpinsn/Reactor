@@ -32,7 +32,17 @@ uint8_t** reactor::MediaFrame::getBuffer(void)
   return m_frame->data;
 }
 
-const int* reactor::MediaFrame::getLineSize(void)
+const int* reactor::MediaFrame::getLineSize(void) const
 {
   return m_frame->linesize;
+}
+
+const int reactor::MediaFrame::getWidth(void) const
+{
+  return m_frame->width;
+}
+
+const int reactor::MediaFrame::getHeight(void) const
+{
+  return m_frame->height;
 }

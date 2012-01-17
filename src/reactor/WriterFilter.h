@@ -13,8 +13,10 @@ namespace reactor
 
   public:
 	WriterFilter(MediaFrameWriter* writer);
-	virtual void writeFrame(MediaFrame& frame);
-	virtual enum PixelFormat getPixelFormat(void);
+	virtual void			  writeFrame(MediaFrame& frame);
+	virtual enum PixelFormat  getPixelFormat(void);
+	virtual const int		  getWidth(void);
+	virtual const int		  getHeight(void);
   };
 }
 

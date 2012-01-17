@@ -42,6 +42,8 @@ namespace reactor
 	  bool openFile(string& filename);
 	  bool closeFile();
 	  enum PixelFormat getPixelFormat(void);
+	  const int getWidth(void);
+	  const int getHeight(void);
 
 	  MediaFrame readFrame();
 	};
