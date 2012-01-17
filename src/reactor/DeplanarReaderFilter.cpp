@@ -3,7 +3,7 @@
 reactor::DeplanarReaderFilter::DeplanarReaderFilter(MediaFrameReader* reader) : ReaderFilter(reader)
 {
   m_convertedFrame = avcodec_alloc_frame();
-  int numberBytes = avpicture_get_size(PIX_FMT_RGB24, reader->getWidth(), reader->getHeight());
+  int numberBytes = avpicture_get_size(reader->getPixelFormat(), reader->getWidth(), reader->getHeight());
 
   if(numberBytes > 0)
   {
@@ -13,7 +13,7 @@ reactor::DeplanarReaderFilter::DeplanarReaderFilter(MediaFrameReader* reader) : 
 	m_convertedBuffer = (uint8_t*)av_malloc(numberBytes * sizeof(uint8_t));
 	if(m_convertedBuffer)
 	{
-	  avpicture_fill((AVPicture*)m_convertedFrame, m_convertedBuffer, PIX_FMT_RGB24, reader->getWidth(), reader->getHeight());
+	  avpicture_fill((AVPicture*)m_convertedFrame, m_convertedBuffer, reader->getPixelFormat(), reader->getWidth(), reader->getHeight());
 
 	  m_initialized = true;
 	}
