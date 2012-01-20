@@ -15,7 +15,9 @@
 #include <string>
 
 //	FFmpeg Includes
+#ifndef __STDC_CONSTANT_MACROS
 #define __STDC_CONSTANT_MACROS
+#endif
 extern "C"
 {
   #include <libavcodec/avcodec.h>

@@ -4,7 +4,9 @@
 #include "MediaFrame.h"
 
 //	FFmpeg includes
+#ifndef __STDC_CONSTANT_MACROS
 #define __STDC_CONSTANT_MACROS
+#endif
 extern "C"
 {
   #include <libavformat/avformat.h>

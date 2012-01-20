@@ -2,7 +2,9 @@
 #define _REACTOR_MEDIA_FRAME_H
 
 //	FFmpeg Includes
+#ifndef __STDC_CONSTANT_MACROS
 #define __STDC_CONSTANT_MACROS
+#endif
 extern "C"
 {
   #include <libavformat/avformat.h>
