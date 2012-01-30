@@ -45,7 +45,9 @@ void reactor::ColorSpaceWriterFilter::writeFrame(MediaFrame& frame)
 			  frame.getBuffer(), frame.getLineSize(), 0, frame.getHeight(), 
 			  m_convertedFrame->data, m_convertedFrame->linesize);
 
-	WriterFilter::writeFrame(MediaFrame(m_convertedFrame, m_format));
+      MediaFrame frame(m_convertedFrame, m_format);
+      
+	WriterFilter::writeFrame(frame);
   }
 }
 

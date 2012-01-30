@@ -5,7 +5,9 @@
 #include <string>
 
 //	FFmpeg Includes
+#ifndef __STDC_CONSTANT_MACROS
 #define __STDC_CONSTANT_MACROS
+#endif
 extern "C"
 {
   #include <libavcodec/avcodec.h>
@@ -34,9 +36,10 @@ namespace reactor
   public:
 	VideoFileWriter(void);
 	~VideoFileWriter();
-	bool openFile(string& filename);
-	bool closeFile(void);
-	void writeFrame(MediaFrame& frame);
+    
+	bool              openFile(string& filename);
+	bool              closeFile(void);
+	void              writeFrame(MediaFrame& frame);
 
 	enum PixelFormat  getPixelFormat(void);
   	const int		  getWidth(void);

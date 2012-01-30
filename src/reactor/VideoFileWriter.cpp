@@ -119,8 +119,7 @@ void reactor::VideoFileWriter::_setContextParameters(void)
   m_videoState.m_CodecContext->time_base.num = 30;
   m_videoState.m_CodecContext->pix_fmt = PIX_FMT_YUV422P;
 
-  //  Lossless max
-  
+  //  Lossless max  
   m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
   m_videoState.m_CodecContext->me_method = ME_FULL;
   m_videoState.m_CodecContext->me_subpel_quality = 8;
@@ -143,7 +142,6 @@ void reactor::VideoFileWriter::_setContextParameters(void)
   m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER;
   m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
   
-
   //  Lossless Slower
   /*
   m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;

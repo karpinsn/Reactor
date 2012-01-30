@@ -111,6 +111,8 @@ enum PixelFormat reactor::VideoFileReader::getPixelFormat(void)
   {
 	return m_videoState.m_CodecContext->pix_fmt;
   }
+
+  return PIX_FMT_NONE;
 }
 
 const int reactor::VideoFileReader::getWidth(void)

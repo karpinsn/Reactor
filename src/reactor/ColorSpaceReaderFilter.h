@@ -1,7 +1,9 @@
 #ifndef _REACTOR_COLOR_SPACE_READER_FILTER_H_
 #define _REACTOR_COLOR_SPACE_READER_FILTER_H_
 
+#ifndef __STDC_CONSTANT_MACROS
 #define __STDC_CONSTANT_MACROS
+#endif
 extern "C"
 {
   #include <libavformat/avformat.h>
@@ -27,8 +29,9 @@ namespace reactor
   public:
 	ColorSpaceReaderFilter(MediaFrameReader* reader, enum PixelFormat destinationFormat);
 	~ColorSpaceReaderFilter();
-	MediaFrame readFrame(void);
-	enum PixelFormat getPixelFormat(void);
+    
+	MediaFrame        readFrame(void);
+	enum PixelFormat  getPixelFormat(void);
   };
 }
 
