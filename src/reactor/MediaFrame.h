@@ -22,14 +22,14 @@ namespace reactor
 	MediaFrame();
 	MediaFrame(AVFrame* frame, enum PixelFormat format);
 
-	bool isEmpty(void);
-	AVFrame* getFrame(void);
-	enum PixelFormat getPixelFormat(void);
-	uint8_t** getBuffer(void);
+	bool              isEmpty(void);
+	AVFrame*          getFrame(void);
+	enum PixelFormat  getPixelFormat(void);
+	uint8_t**         getBuffer(void);
 
-	const int* getLineSize(void) const;
-	const int getWidth(void) const;
-	const int getHeight(void) const;
+	const int*        getLineSize(void) const;
+	const int         getWidth(void)    const;
+	const int         getHeight(void)   const;
   };
 }
 

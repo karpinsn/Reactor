@@ -29,8 +29,9 @@ namespace reactor
   public:
 	ColorSpaceReaderFilter(MediaFrameReader* reader, enum PixelFormat destinationFormat);
 	~ColorSpaceReaderFilter();
-	MediaFrame readFrame(void);
-	enum PixelFormat getPixelFormat(void);
+    
+	MediaFrame        readFrame(void);
+	enum PixelFormat  getPixelFormat(void);
   };
 }
 

@@ -41,13 +41,14 @@ namespace reactor
 
 	public:
 	  VideoFileReader(void);
-	  bool openFile(string& filename);
-	  bool closeFile();
-	  enum PixelFormat getPixelFormat(void);
-	  const int getWidth(void);
-	  const int getHeight(void);
+	  
+      bool              openFile(string& filename);
+	  bool              closeFile();
+	  enum PixelFormat  getPixelFormat(void);
+	  const int         getWidth(void);
+	  const int         getHeight(void);
 
-	  MediaFrame readFrame();
+	  MediaFrame        readFrame();
 	};
 }
 

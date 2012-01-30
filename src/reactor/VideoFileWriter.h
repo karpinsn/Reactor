@@ -36,9 +36,10 @@ namespace reactor
   public:
 	VideoFileWriter(void);
 	~VideoFileWriter();
-	bool openFile(string& filename);
-	bool closeFile(void);
-	void writeFrame(MediaFrame& frame);
+    
+	bool              openFile(string& filename);
+	bool              closeFile(void);
+	void              writeFrame(MediaFrame& frame);
 
 	enum PixelFormat  getPixelFormat(void);
   	const int		  getWidth(void);

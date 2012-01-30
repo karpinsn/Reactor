@@ -27,6 +27,7 @@ namespace reactor
   public:
 	DeplanarReaderFilter(MediaFrameReader* reader);
 	~DeplanarReaderFilter();
+    
 	MediaFrame readFrame(void);
   };
 }

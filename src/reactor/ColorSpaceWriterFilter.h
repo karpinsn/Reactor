@@ -29,8 +29,9 @@ namespace reactor
   public:
 	ColorSpaceWriterFilter(MediaFrameWriter* writer, enum PixelFormat sourceFormat);
 	~ColorSpaceWriterFilter();
-	void writeFrame(MediaFrame& frame);
-	enum PixelFormat getPixelFormat(void);
+    
+	void              writeFrame(MediaFrame& frame);
+	enum PixelFormat  getPixelFormat(void);
   };
 }
 
