@@ -120,6 +120,7 @@ void reactor::VideoFileWriter::_setContextParameters(void)
   m_videoState.m_CodecContext->pix_fmt = PIX_FMT_YUV422P;
 
   //  Lossless max
+  
   m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
   m_videoState.m_CodecContext->me_method = ME_FULL;
   m_videoState.m_CodecContext->me_subpel_quality = 8;
@@ -141,4 +142,128 @@ void reactor::VideoFileWriter::_setContextParameters(void)
   m_videoState.m_CodecContext->me_cmp |= 1;
   m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER;
   m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
+  
+
+  //  Lossless Slower
+  /*
+  m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
+  m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER | CODEC_FLAG_CLOSED_GOP;
+  m_videoState.m_CodecContext->me_cmp |= 1;
+  m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
+  m_videoState.m_CodecContext->partitions &= ~(X264_PART_B8X8);
+  m_videoState.m_CodecContext->me_method = ME_UMH;
+  m_videoState.m_CodecContext->me_subpel_quality = 8;
+  m_videoState.m_CodecContext->me_range = 16;
+  m_videoState.m_CodecContext->gop_size = 250;
+  m_videoState.m_CodecContext->keyint_min = 25;
+  m_videoState.m_CodecContext->scenechange_threshold = 40;
+  m_videoState.m_CodecContext->i_quant_factor = .71;
+  m_videoState.m_CodecContext->b_frame_strategy = 1;
+  m_videoState.m_CodecContext->qcompress = .6;
+  m_videoState.m_CodecContext->qmin = 0;
+  m_videoState.m_CodecContext->qmax = 69;
+  m_videoState.m_CodecContext->max_qdiff = 4;
+  m_videoState.m_CodecContext->refs = 4;
+  m_videoState.m_CodecContext->directpred = 1;
+  m_videoState.m_CodecContext->flags2 |= CODEC_FLAG2_MIXED_REFS | CODEC_FLAG2_8X8DCT | CODEC_FLAG2_FASTPSKIP;
+  m_videoState.m_CodecContext->cqp = 0;
+  m_videoState.m_CodecContext->weighted_p_pred = 2;
+  */
+
+  //  Ultrafast
+  /*
+  m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
+  m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER | CODEC_FLAG_CLOSED_GOP;
+  m_videoState.m_CodecContext->me_cmp |= 1;
+  m_videoState.m_CodecContext->partitions &= (X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4 | X264_PART_B8X8);
+  m_videoState.m_CodecContext->me_method = ME_EPZS;
+  m_videoState.m_CodecContext->me_subpel_quality = 0;
+  m_videoState.m_CodecContext->me_range = 16;
+  m_videoState.m_CodecContext->gop_size = 250;
+  m_videoState.m_CodecContext->keyint_min = 25;
+  m_videoState.m_CodecContext->scenechange_threshold = 40;
+  m_videoState.m_CodecContext->i_quant_factor = .71;
+  m_videoState.m_CodecContext->b_frame_strategy = 1;
+  m_videoState.m_CodecContext->qcompress = .6;
+  m_videoState.m_CodecContext->qmin = 0;
+  m_videoState.m_CodecContext->qmax = 69;
+  m_videoState.m_CodecContext->max_qdiff = 4;
+  m_videoState.m_CodecContext->directpred = 1;
+  m_videoState.m_CodecContext->flags2 |= CODEC_FLAG2_FASTPSKIP;
+  m_videoState.m_CodecContext->cqp = 0;
+  */
+
+  //  Medium
+  /*
+  m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
+  m_videoState.m_CodecContext->me_method = ME_FULL;
+  m_videoState.m_CodecContext->me_subpel_quality = 8;
+  m_videoState.m_CodecContext->me_range = 16;
+  m_videoState.m_CodecContext->gop_size = 250;
+  m_videoState.m_CodecContext->keyint_min = 25;
+  m_videoState.m_CodecContext->scenechange_threshold = 40;
+  m_videoState.m_CodecContext->i_quant_factor = .71;
+  m_videoState.m_CodecContext->b_frame_strategy = 1;
+  m_videoState.m_CodecContext->qcompress = .6;
+  m_videoState.m_CodecContext->qmin = 0;
+  m_videoState.m_CodecContext->qmax = 69;
+  m_videoState.m_CodecContext->max_qdiff = 4;
+  m_videoState.m_CodecContext->refs = 16;
+  m_videoState.m_CodecContext->directpred = 1;
+  m_videoState.m_CodecContext->cqp = 0;
+  m_videoState.m_CodecContext->weighted_p_pred = 2;
+  m_videoState.m_CodecContext->flags2 = CODEC_FLAG2_MIXED_REFS | CODEC_FLAG2_8X8DCT | CODEC_FLAG2_FASTPSKIP;
+  m_videoState.m_CodecContext->me_cmp |= 1;
+  m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER;
+  m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
+  */
+
+  //  Baseline
+  /*
+  m_videoState.m_CodecContext->coder_type = 0;
+  //m_videoState.m_CodecContext->max_b_frames = 0;
+  m_videoState.m_CodecContext->flags2 &= ~(CODEC_FLAG2_WPRED | CODEC_FLAG2_8X8DCT);
+  m_videoState.m_CodecContext->weighted_p_pred = 0;
+  
+  //  + Nik Settings
+  m_videoState.m_CodecContext->flags2 |= CODEC_FLAG2_8X8DCT;
+  m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER;
+  m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
+  m_videoState.m_CodecContext->me_method = ME_FULL;
+  m_videoState.m_CodecContext->me_subpel_quality = 8;
+  m_videoState.m_CodecContext->me_range = 16;
+  m_videoState.m_CodecContext->gop_size = 250;
+  m_videoState.m_CodecContext->keyint_min = 25;
+  m_videoState.m_CodecContext->scenechange_threshold = 40;
+  m_videoState.m_CodecContext->i_quant_factor = .71;
+  m_videoState.m_CodecContext->b_frame_strategy = 1;
+  m_videoState.m_CodecContext->qcompress = .6;
+  m_videoState.m_CodecContext->qmin = 0;
+  m_videoState.m_CodecContext->qmax = 69;
+  m_videoState.m_CodecContext->max_qdiff = 4;
+  m_videoState.m_CodecContext->refs = 16;
+*/  
+
+  //  HQ - Paper MQ
+/*
+  m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
+  m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER;
+  m_videoState.m_CodecContext->me_cmp = 1;
+  m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_B8X8;
+  m_videoState.m_CodecContext->me_method = ME_UMH;
+  m_videoState.m_CodecContext->me_subpel_quality = 8;
+  m_videoState.m_CodecContext->me_range = 16;
+  m_videoState.m_CodecContext->gop_size = 250;
+  m_videoState.m_CodecContext->keyint_min = 25;
+  m_videoState.m_CodecContext->scenechange_threshold = 40;
+  m_videoState.m_CodecContext->i_quant_factor = .71;
+  m_videoState.m_CodecContext->b_frame_strategy = 2;
+  m_videoState.m_CodecContext->qcompress = .6;
+  m_videoState.m_CodecContext->max_qdiff = 4;
+  m_videoState.m_CodecContext->max_b_frames = 4;
+  m_videoState.m_CodecContext->refs = 4;
+  m_videoState.m_CodecContext->directpred = 3;
+  m_videoState.m_CodecContext->trellis = 1;
+  m_videoState.m_CodecContext->flags2 = CODEC_FLAG2_BPYRAMID | CODEC_FLAG2_WPRED | CODEC_FLAG2_MIXED_REFS | CODEC_FLAG2_8X8DCT | CODEC_FLAG2_FASTPSKIP;
+  */
 }
