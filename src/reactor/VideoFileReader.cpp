@@ -29,7 +29,7 @@ bool reactor::VideoFileReader::openFile(string& filename)
   int errorCode;
   errorCode = av_open_input_file(&m_videoState.m_FormatContext, 
 								  filename.c_str(), 
-								  NULL, 0, NULL);
+								  nullptr, 0, nullptr);
 
   if(errorCode != 0)
   {
@@ -66,7 +66,7 @@ bool reactor::VideoFileReader::openFile(string& filename)
   // Need to get a decoder for the video stream
   m_videoState.m_Codec = avcodec_find_decoder(m_videoState.m_CodecContext->codec_id);
 
-  if(NULL == m_videoState.m_Codec)
+  if(nullptr == m_videoState.m_Codec)
   {
 	cout << "Unable to find a codec for the video file!" << endl;
 	return m_fileOpen;
@@ -107,7 +107,7 @@ bool reactor::VideoFileReader::closeFile()
 
 enum PixelFormat reactor::VideoFileReader::getPixelFormat(void)
 {
-  if(NULL != m_videoState.m_CodecContext)
+  if(nullptr != m_videoState.m_CodecContext)
   {
 	return m_videoState.m_CodecContext->pix_fmt;
   }
@@ -117,7 +117,7 @@ enum PixelFormat reactor::VideoFileReader::getPixelFormat(void)
 
 const int reactor::VideoFileReader::getWidth(void)
 {
-  if(NULL != m_videoState.m_CodecContext)
+  if(nullptr != m_videoState.m_CodecContext)
   {
 	return m_videoState.m_CodecContext->width;
   }
@@ -127,7 +127,7 @@ const int reactor::VideoFileReader::getWidth(void)
 	
 const int reactor::VideoFileReader::getHeight(void)
 {
-  if(NULL != m_videoState.m_CodecContext)
+  if(nullptr != m_videoState.m_CodecContext)
   {
 	return m_videoState.m_CodecContext->height;
   }

@@ -18,7 +18,7 @@ reactor::ColorSpaceWriterFilter::ColorSpaceWriterFilter(MediaFrameWriter* writer
 	  avpicture_fill((AVPicture*)m_convertedFrame, m_convertedBuffer, m_format, writer->getWidth(), writer->getHeight());
 	  m_conversionContext = sws_getContext(writer->getWidth(), writer->getHeight(), sourceFormat, 
 										 writer->getWidth(), writer->getHeight(), writer->getPixelFormat(), 
-										 SWS_BICUBIC, NULL, NULL, NULL);
+										 SWS_BICUBIC, nullptr, nullptr, nullptr);
 	  m_initialized = true;
 	}
   }

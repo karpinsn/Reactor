@@ -18,7 +18,7 @@ reactor::ColorSpaceReaderFilter::ColorSpaceReaderFilter(MediaFrameReader* reader
 	  avpicture_fill((AVPicture*)m_convertedFrame, m_convertedBuffer, m_format, reader->getWidth(), reader->getHeight());
 	  m_conversionContext = sws_getContext(reader->getWidth(), reader->getHeight(), reader->getPixelFormat(),
 										   reader->getWidth(), reader->getHeight(), destinationFormat,
-										   SWS_BICUBIC, NULL, NULL, NULL);
+										   SWS_BICUBIC, nullptr, nullptr, nullptr);
 
 	  m_initialized = true;
 	}

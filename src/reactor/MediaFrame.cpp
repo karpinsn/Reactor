@@ -2,7 +2,7 @@
 
 reactor::MediaFrame::MediaFrame()
 {
-  m_frame = NULL;
+  m_frame = nullptr;
   m_format = PIX_FMT_NONE;
 }
 
@@ -14,7 +14,7 @@ reactor::MediaFrame::MediaFrame(AVFrame* frame, enum PixelFormat format)
 
 bool reactor::MediaFrame::isEmpty(void)
 {
-  return NULL == m_frame;
+  return nullptr == m_frame;
 }
 
 AVFrame* reactor::MediaFrame::getFrame(void)

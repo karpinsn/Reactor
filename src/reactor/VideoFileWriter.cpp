@@ -6,7 +6,7 @@ reactor::VideoFileWriter::VideoFileWriter(void)
   m_outputBuffer = (uint8_t*)malloc(m_outputBufferSize);
 
   //  Init FFmpeg
-  av_register_all();
+  avcodec_register_all();
 }
 
 reactor::VideoFileWriter::~VideoFileWriter()
@@ -24,14 +24,14 @@ reactor::VideoFileWriter::~VideoFileWriter()
 bool reactor::VideoFileWriter::openFile(string& filename)
 {
   m_videoState.m_Codec = avcodec_find_encoder(CODEC_ID_H264);
-  if(NULL == m_videoState.m_Codec)
+  if(nullptr == m_videoState.m_Codec)
   {
 	cout << "Unable to load the H.264 codec!" << endl;
 	return false;
   }
 
   m_videoState.m_CodecContext = avcodec_alloc_context3(m_videoState.m_Codec);
-  if(NULL == m_videoState.m_CodecContext)
+  if(nullptr == m_videoState.m_CodecContext)
   {
 	cout << "Unable to allocate a codec context!" << endl;
 	return false;
@@ -40,7 +40,7 @@ bool reactor::VideoFileWriter::openFile(string& filename)
   //  Set parameters ... TODO comeback and fix this!
   _setContextParameters();
 
-  int videoOpen = avcodec_open(m_videoState.m_CodecContext, m_videoState.m_Codec);
+  int videoOpen = avcodec_open2(m_videoState.m_CodecContext, m_videoState.m_Codec, nullptr);
   if(videoOpen < 0)
   {
 	cout << "Unable to open the codec!" << endl;
@@ -70,9 +70,16 @@ bool reactor::VideoFileWriter::closeFile(void)
   int outputSize;
   do
   {
-	outputSize = avcodec_encode_video(m_videoState.m_CodecContext, m_outputBuffer, m_outputBufferSize, NULL);
+	outputSize = avcodec_encode_video(m_videoState.m_CodecContext, m_outputBuffer, m_outputBufferSize, nullptr);
 	fwrite(m_outputBuffer, 1, outputSize, m_fileHandle);
   }while(outputSize > 0);
+
+  //  Write the sequence end code
+  m_outputBuffer[0] = 0x00;
+  m_outputBuffer[1] = 0x00;
+  m_outputBuffer[2] = 0x01;
+  m_outputBuffer[3] = 0xb7;
+  fwrite(m_outputBuffer, 1, 4, m_fileHandle);
 
   fclose(m_fileHandle);
 
@@ -93,7 +100,7 @@ enum PixelFormat reactor::VideoFileWriter::getPixelFormat(void)
 
 const int reactor::VideoFileWriter::getWidth(void)
 {
-  if(NULL != m_videoState.m_CodecContext)
+  if(nullptr != m_videoState.m_CodecContext)
   {
 	return m_videoState.m_CodecContext->width;
   }
@@ -103,7 +110,7 @@ const int reactor::VideoFileWriter::getWidth(void)
 	
 const int reactor::VideoFileWriter::getHeight(void)
 {
-  if(NULL != m_videoState.m_CodecContext)
+  if(nullptr != m_videoState.m_CodecContext)
   {
 	return m_videoState.m_CodecContext->height;
   }
@@ -113,11 +120,15 @@ const int reactor::VideoFileWriter::getHeight(void)
 
 void reactor::VideoFileWriter::_setContextParameters(void)
 {
+  av_opt_set(m_videoState.m_CodecContext->priv_data, "profile", "high444", 0);
+  av_opt_set(m_videoState.m_CodecContext->priv_data, "preset", "veryslow", 0);
+
   m_videoState.m_CodecContext->width = 512;
   m_videoState.m_CodecContext->height = 512;
   m_videoState.m_CodecContext->time_base.num = 1;
   m_videoState.m_CodecContext->time_base.num = 30;
-  m_videoState.m_CodecContext->pix_fmt = PIX_FMT_YUV422P;
+  m_videoState.m_CodecContext->pix_fmt = PIX_FMT_YUV444P;
+  m_videoState.m_CodecContext->bit_rate = 100000;
 
   //  Lossless max  
   m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;

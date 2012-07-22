@@ -24,10 +24,10 @@ typedef struct MediaState
 
   MediaState()
   {
-	m_FormatContext		= NULL;
-	m_CodecContext		= NULL;
-	m_Codec				= NULL;
-	m_CurrentFrame		= NULL;
+	m_FormatContext		= nullptr;
+	m_CodecContext		= nullptr;
+	m_Codec				= nullptr;
+	m_CurrentFrame		= nullptr;
 	m_videoStreamIndex	= -1;
 	m_audioStreamIndex	= -1;
   }
