@@ -130,6 +130,8 @@ void reactor::VideoFileWriter::_setContextParameters(void)
   m_videoState.m_CodecContext->pix_fmt = PIX_FMT_YUV444P;
   m_videoState.m_CodecContext->bit_rate = 100000;
 
+  //	TODO - Broken
+
   //  Lossless max  
   m_videoState.m_CodecContext->codec_type = AVMEDIA_TYPE_VIDEO;
   m_videoState.m_CodecContext->me_method = ME_FULL;
@@ -145,13 +147,13 @@ void reactor::VideoFileWriter::_setContextParameters(void)
   m_videoState.m_CodecContext->qmax = 69;
   m_videoState.m_CodecContext->max_qdiff = 4;
   m_videoState.m_CodecContext->refs = 16;
-  m_videoState.m_CodecContext->directpred = 1;
-  m_videoState.m_CodecContext->cqp = 0;
-  m_videoState.m_CodecContext->weighted_p_pred = 2;
-  m_videoState.m_CodecContext->flags2 |= CODEC_FLAG2_MIXED_REFS | CODEC_FLAG2_8X8DCT | CODEC_FLAG2_FASTPSKIP;
+  //m_videoState.m_CodecContext->directpred = 1;
+  //m_videoState.m_CodecContext->cqp = 0;
+  //m_videoState.m_CodecContext->weighted_p_pred = 2;
+  //m_videoState.m_CodecContext->flags2 |= CODEC_FLAG2_MIXED_REFS | CODEC_FLAG2_8X8DCT | CODEC_FLAG2_FASTPSKIP;
   m_videoState.m_CodecContext->me_cmp |= 1;
   m_videoState.m_CodecContext->flags |= CODEC_FLAG_LOOP_FILTER;
-  m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
+  //m_videoState.m_CodecContext->partitions |= X264_PART_I8X8 | X264_PART_I4X4 | X264_PART_P8X8 | X264_PART_P4X4;
   
   //  Lossless Slower
   /*

@@ -27,10 +27,12 @@ bool reactor::VideoFileReader::openFile(string& filename)
 
   //  Open the video file
   int errorCode;
+  //	TODO - Broken
+  /*
   errorCode = av_open_input_file(&m_videoState.m_FormatContext, 
 								  filename.c_str(), 
 								  nullptr, 0, nullptr);
-
+								  */
   if(errorCode != 0)
   {
 	cout << "Unable to open video: " << filename << endl;
