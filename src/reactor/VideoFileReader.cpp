@@ -27,6 +27,7 @@ bool reactor::VideoFileReader::openFile(string& filename)
 
   //  Open the video file
   int errorCode;
+
   //	TODO - Broken
   /*
   errorCode = av_open_input_file(&m_videoState.m_FormatContext, 
